@@ -12,6 +12,19 @@ public class LoginController {
 
     @GetMapping("")
     public String login(Model model){
-        return "login";
+        return "general/login";
+    }
+
+
+    @GetMapping("/info")
+    public String getInfo(Model model){
+        model.addAttribute("activePage", "info");
+        return "info";
+    }
+
+    @GetMapping("/contact")
+    public String getContact(Model model){
+        model.addAttribute("activePage", "contact");
+        return "contact";
     }
 }
