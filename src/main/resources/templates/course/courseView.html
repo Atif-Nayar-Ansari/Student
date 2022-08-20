@@ -1,17 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/layout">
+      xmlns="http://www.w3.org/1999/html"
+      layout:decorator="layout/layout" lang="en">
 
 <head>
-    <title>View Course</title>
+    <title>View Courses</title>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        $(document).ready(function () {
+            $('#courseTable').DataTable({
+                "order": [1, "asc"],
+                "columns": [
+                    null,
+                    null,
+                    null,
+                    null
+                ]
+            });
+        });
+        /*]]>*/
+    </script>
+
 </head>
 
 <body>
-<div layout:fragment="content">
-
+<div class="page-header" layout:fragment="header">
     <h1>View Courses.</h1>
-
+</div>
+<div layout:fragment="content">
+    <div th:if="${allCourses != null}">
+        <div th:if="${#lists.size(allCourses) == 0}">
+            <div class="alert alert-info text-center">No Courses Available</div>
+        </div>
+        <div th:if="${#lists.size(allCourses) != 0}">
+            <div class="alert alert-info text-center">Courses Available</div>
+            <table class="table table-bordered table-hover table-striped" id="courseTable"
+                   aria-label="all-courses-table">
+                <thead>
+                <tr>
+                    <th scope="col"><strong>Pks</strong></th>
+                    <th scope="col"><strong>Course Name</strong></th>
+                    <th scope="col"><strong>Course Fees</strong></th>
+                    <th scope="col"><strong>Course Duration</strong></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="course : ${allCourses}">
+                    <td th:text="${course.coursePk}"></td>
+                    <td th:text="${course.courseName}"></td>
+                    <td th:text="${course.coursePrice}"></td>
+                    <td th:text="${course.courseDuration}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 </html>

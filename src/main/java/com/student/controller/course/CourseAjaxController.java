@@ -6,6 +6,7 @@ import com.student.model.course.CourseDetailsViewModel;
 import com.student.model.course.CourseDuration;
 import com.student.services.course.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,15 +29,10 @@ public class CourseAjaxController {
         String courseDuration = courseDetailsEntity1.getCourseDuration();
     }
 
-    @GetMapping("/getAllCourse")
-    public void showAllCourse(){
-        List<CourseDetailsViewModel> allCourse = courseService.findAllCourse();
-        for (CourseDetailsViewModel show: allCourse){
-            System.out.println(show.getCoursePk());
-            System.out.println(show.getCoursePrice());
-            System.out.println(show.getCourseName());
-            System.out.println(show.getCourseDuration());
-            System.out.println("=================");
-        }
-    }
+//    @GetMapping("/getAllCourse")
+//    public List<CourseDetailsViewModel> showAllCourse(Model model){
+//        List<CourseDetailsViewModel> allCourses = courseService.findAllCourse();
+//        model.addAttribute("allCourses",allCourses);
+//        return null;
+//    }
 }
