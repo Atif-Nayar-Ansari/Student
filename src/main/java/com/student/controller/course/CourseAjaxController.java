@@ -2,37 +2,28 @@ package com.student.controller.course;
 
 import com.student.enities.course.CourseDetailsEntity;
 import com.student.model.course.CourseDetailsDTO;
-import com.student.model.course.CourseDetailsViewModel;
 import com.student.model.course.CourseDuration;
 import com.student.services.course.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
+@RequestMapping(CourseController.PATH)
 public class CourseAjaxController {
 
     @Autowired
     private CourseService courseService;
 
-    @GetMapping("/saveCourse")
-    public void saveCourse(){
-        CourseDetailsDTO courseDetailsDTO = new CourseDetailsDTO();
+    @PostMapping("/saveCourse")
+    public ModelAndView saveCourse(@RequestBody CourseDetailsDTO courseDetailsDTO){
+
         courseDetailsDTO.setCourseDuration(CourseDuration.TWO_MONTHS);
-        courseDetailsDTO.setCourseName("PG");
+        courseDetailsDTO.setCourseName("MCA");
         courseDetailsDTO.setCoursePrice(4500);
 
         CourseDetailsEntity courseDetailsEntity1 = courseService.saveCourse(courseDetailsDTO);
         String courseDuration = courseDetailsEntity1.getCourseDuration();
+        return null;
     }
-
-//    @GetMapping("/getAllCourse")
-//    public List<CourseDetailsViewModel> showAllCourse(Model model){
-//        List<CourseDetailsViewModel> allCourses = courseService.findAllCourse();
-//        model.addAttribute("allCourses",allCourses);
-//        return null;
-//    }
 }

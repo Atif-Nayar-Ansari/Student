@@ -4,36 +4,16 @@
 
 <head>
 <title>Header</title>
+	<style>
+		.navbar-brand{
+			font-size:2px;
+		}
+	</style>
 </head>
 
 <body>
 
-
-<!--	<nav class="navbar navbar-default" th:fragment="navigation">-->
-
-<!--		<div class="container">-->
-<!--			<div class="navbar-header">-->
-<!--				<ul class="navbar-nav mr-auto">-->
-<!--				<li class="nav-item" th:class="${activePage == 'home'} ? 'nav-item active' : 'nav-item'" >-->
-<!--					<a class="navbar-brand" href="/">Home</a>-->
-<!--				</li>-->
-<!--				<li class="nav-item" th:class="${activePage == 'contact'} ? 'nav-item active' : 'nav-item'">-->
-<!--					<a class="navbar-brand"  href="contact">Contact</a>-->
-<!--				</li>-->
-<!--				</ul>-->
-<!--			</div>-->
-
-<!--			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">-->
-<!--				<ul class="nav navbar-nav navbar-right">-->
-<!--					<li><a class="nav-item nav-link active" href="about">About</a></li>-->
-<!--				</ul>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</nav>-->
-
-<!--Experiments-->
-
-<nav class="navbar navbar-inverse navbar-static-top " th:fragment="navigation">
+<nav class="navbar navbar-inverse navbar-static-top" th:fragment="navigation">
 	<div class="container-fluid">
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
@@ -56,10 +36,10 @@
 
 
 				<li class="dropdown" th:class="${subpage == 'course-active'} ? 'nav-item active' : 'nav-item'">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Course<span class="caret"></span></a>
+					<a class="dropdown-toggle navbar-brand" data-toggle="dropdown" href="#">Course<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a class="nav-link" th:href="@{/course}">Create Course</a></li>
-						<li><a class="nav-link" th:href="@{/course/view/courses}">View Course</a></li>
+						<li><a class="nav-link" th:href="@{/course}">View Course</a></li>
+						<li><a class="nav-link" th:href="@{/course/test}">Create Course</a></li>
 					</ul>
 				</li>
 

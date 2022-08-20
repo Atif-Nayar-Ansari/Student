@@ -23,13 +23,13 @@ public class CourseController {
     }
 
     @GetMapping("")
-    public String index(Model model){
+    public String viewAllCourses(Model model){
         model.addAttribute("allCourses",courseService.findAllCourse());
         return "/course/courseView";
     }
 
-//    @GetMapping("/view/courses")
-//    public String viewCourses(){
-//        return "/course/courseView";
-//    }
+    @GetMapping("/test")
+    public String load(){
+        return "/course/courseCreate";
+    }
 }
