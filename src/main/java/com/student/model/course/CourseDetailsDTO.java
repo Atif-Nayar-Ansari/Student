@@ -5,7 +5,7 @@ public class CourseDetailsDTO {
     private Long coursePk;
     private String courseName;
     private Integer coursePrice;
-    private CourseDuration courseDuration;
+    private String courseDuration;
 
 
     public Long getCoursePk() {
@@ -32,11 +32,11 @@ public class CourseDetailsDTO {
         this.coursePrice = coursePrice;
     }
 
-    public CourseDuration getCourseDuration() {
+    public String getCourseDuration() {
         return courseDuration;
     }
 
-    public void setCourseDuration(CourseDuration courseDuration) {
+    public void setCourseDuration(String courseDuration) {
         this.courseDuration = courseDuration;
     }
 }

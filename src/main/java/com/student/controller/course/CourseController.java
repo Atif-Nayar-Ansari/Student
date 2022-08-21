@@ -28,7 +28,7 @@ public class CourseController {
         return "/course/courseView";
     }
 
-    @GetMapping("/test")
+    @GetMapping("/createCourse")
     public String load(){
         return "/course/courseCreate";
     }

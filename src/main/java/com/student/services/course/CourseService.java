@@ -23,7 +23,7 @@ public class CourseService {
 
         CourseDetailsEntity courseDetailsEntity = new CourseDetailsEntity();
         courseDetailsEntity.setCoursePrice(courseDetailsDTO.getCoursePrice());
-        courseDetailsEntity.setCourseDuration(courseDetailsDTO.getCourseDuration().getValue());
+        courseDetailsEntity.setCourseDuration(courseDetailsDTO.getCourseDuration());
         courseDetailsEntity.setCourseName(courseDetailsDTO.getCourseName());
         return courseRepository.save(courseDetailsEntity);
     }
