@@ -5,14 +5,16 @@
       layout:decorator="layout/layout" lang="en">
 
 <head>
-    <title>View Courses</title>
 
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <title>View Courses</title>
 
     <script th:inline="javascript">
         /*<![CDATA[*/
 
         $(document).ready(function () {
+
+            $('#courseTable').parent().find('[data-tooltip="tooltip"]').tooltip({trigger :'hover'});
+
             $('#courseTable').DataTable({
                 "order": [1, "asc"],
                 "columns": [
@@ -63,10 +65,12 @@
                     <td th:text="${course.courseDuration}"></td>
                     <td th:text="${course.createdTs}"></td>
                     <td>
-<!--                        <i class="fa fa-delete"></i>-->
-<!--                        <i class="fa fa-car" style="font-size:48px;"></i>-->
-<!--                        <i class="fa fa-car" style="font-size:60px;color:red;"></i>-->
-
+                        <button data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Edit" id="editButton" data-target="#myModal">
+                            <img style="width: 30px;" th:src="@{/images/edit.gif}">
+                        </button>
+                        <button data-tooltip="tooltip" data-placement="top" title="Delete" id="deleteButton">
+                            <img style="width: 30px;" th:src="@{/images/waste.gif}">
+                        </button>
                     </td>
                 </tr>
                 </tbody>
@@ -74,6 +78,73 @@
         </div>
     </div>
 
+
+    <!--For editing modal-->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div style="margin-top: 200px;" class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><img style="width: 25px;" th:src="@{/images/close.gif}"></button>
+                    <h4 class="modal-title text-center">Update the Course Details.</h4>
+                </div>
+                <div class="modal-body">
+                    <form name="edit-form">
+                        <div class="form-group row">
+                            <label for="courseName" class="col-md-5 col-form-label text-right required">Course Name</label>
+                            <div class="col-md-3">
+                                <div class="input-group row">
+                                    <div class="input-group-addon">
+                                        &#128218;
+                                    </div>
+                                    <input type="text" id="courseName" pattern="[a-zA-Z'-'\s]*" class="form-control"
+                                           placeholder="Enter Course name">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="courseFee" class="col-md-5 col-form-label text-right required">Course Fee</label>
+                            <div class="col-md-3">
+                                <div class="input-group row">
+                                    <div class="input-group-addon">
+                                        &#8377;
+                                    </div>
+                                    <input type="number" min="100" max="10000" id="courseFee" class="form-control"
+                                           placeholder="Enter Course Fee" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="courseDuration" class="col-md-5 col-form-label text-right required">Course Duration</label>
+                            <div class="col-md-3">
+                                <div class="input-group row">
+                                    <div class="input-group-addon">
+                                        &#128337;
+                                    </div>
+                                    <select class="form-control" id="courseDuration">
+                                        <option th:each="duration : ${T(com.student.model.course.CourseDuration).values()}"
+                                                th:value="${duration}" th:text="${duration}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br/>
+                        <br/>
+                        <div class="text-center">
+                            <input type="button" id="updateCourseBtn" class="btn btn-primary" value="Update Course" title="click to Update"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--if it returns null-->
     <div th:if="${allCourses == null}">
         <div class="alert alert-danger text-center">Something Bad Happend..</div>
     </div>
