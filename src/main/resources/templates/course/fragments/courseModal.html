@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Modal</title>
+</head>
+<body>
+
+<!--For editing modal-->
+<div class="modal fade" th:id="editModal" role="dialog">
+    <div style="margin-top: 200px;" class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><img style="width: 25px;" th:src="@{/images/close.gif}"></button>
+                <h4 class="modal-title text-center">Update the Course Details.</h4>
+            </div>
+            <div class="modal-body">
+                <form name="edit-form">
+
+                    <div class="form-group row">
+                        <label for="courseName" class="col-md-5 col-form-label text-right required">Course Name</label>
+                        <div class="col-md-3">
+                            <div class="input-group row">
+                                <div class="input-group-addon">
+                                    &#128218;
+                                </div>
+                                <input type="text" id="courseName" class="form-control" value="Yes this is working">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label for="courseFee" class="col-md-5 col-form-label text-right required">Course Fee</label>
+                        <div class="col-md-3">
+                            <div class="input-group row">
+                                <div class="input-group-addon">
+                                    &#8377;
+                                </div>
+                                <input type="number" min="100" max="10000" id="courseFee" class="form-control"
+                                       placeholder="Enter Course Fee" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label for="courseDuration" class="col-md-5 col-form-label text-right required">Course Duration</label>
+                        <div class="col-md-3">
+                            <div class="input-group row">
+                                <div class="input-group-addon">
+                                    &#128337;
+                                </div>
+                                <select class="form-control" id="courseDuration">
+                                    <option th:each="duration : ${T(com.student.model.course.CourseDuration).values()}"
+                                            th:value="${duration}" th:text="${duration}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <br/>
+                    <div class="text-center">
+                        <input type="button" id="updateCourseBtn" class="btn btn-primary" value="Update Course" title="click to Update"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

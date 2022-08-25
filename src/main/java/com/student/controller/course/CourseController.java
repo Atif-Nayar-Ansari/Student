@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(CourseController.PATH)
@@ -31,5 +32,11 @@ public class CourseController {
     @GetMapping("/createCourse")
     public String load(){
         return "/course/courseCreate";
+    }
+
+    @GetMapping("/getOneCourse")
+    public ModelAndView getOneCourse(){
+        ModelAndView modelAndView = new ModelAndView("/course/fragments/courseModal");
+        return modelAndView;
     }
 }
