@@ -5,7 +5,7 @@ public class CourseDetailsViewModel {
     private Long coursePk;
     private String courseName;
     private Integer coursePrice;
-    private String courseDuration;
+    private CourseDuration courseDuration;
     private String createdTs;
 
     public Long getCoursePk() {
@@ -32,11 +32,11 @@ public class CourseDetailsViewModel {
         this.coursePrice = coursePrice;
     }
 
-    public String getCourseDuration() {
+    public CourseDuration getCourseDuration() {
         return courseDuration;
     }
 
-    public void setCourseDuration(String courseDuration) {
+    public void setCourseDuration(CourseDuration courseDuration) {
         this.courseDuration = courseDuration;
     }
 

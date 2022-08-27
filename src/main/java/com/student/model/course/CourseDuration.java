@@ -12,7 +12,7 @@ public enum CourseDuration {
     ONE_YEAR_SIX_MONTHS("1 year Six Months"),
     TWO_YEARS("Two Years");
 
-    final String value;
+    private final String value;
     CourseDuration(String value){
         this.value = value;
     }

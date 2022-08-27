@@ -39,10 +39,10 @@
             });
 
             $('#courseTable').on('click','#editButton',function (){
-                console.log($(this).val())
+                var courseId = $(this).val();
 
                 //have to pass this above pk  to the below ajax call
-                var url = BASE_URL + 'course/getOneCourse';
+                var url = BASE_URL + 'course/getOneCourse/' + courseId;
 
                 $.ajax({
                     type: 'get',
@@ -63,7 +63,8 @@
 
 <body>
 <div class="page-header" layout:fragment="header">
-    <h1>View Courses.</h1>
+        <h1>View Courses.</h1>
+        <img style="width: 30px;" th:src="@{/images/info.gif}">
 </div>
 <div layout:fragment="content" class="jumbotron">
     <div th:if="${allCourses != null}">
@@ -92,7 +93,7 @@
                     <td th:text="${course.createdTs}"></td>
                     <td>
                         <button data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Edit" id="editButton" th:value="${course.coursePk}">
-                            <img style="width: 30px;" th:src="@{/images/edit.gif}">
+                            <img style="width: 30px;" th:src="@{/images/settings.gif}">
                         </button>
                         <button data-tooltip="tooltip" data-placement="top" title="Delete" id="deleteButton">
                             <img style="width: 30px;" th:src="@{/images/waste.gif}">
