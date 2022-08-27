@@ -3,6 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <title>Course Modal</title>
+    <script>
+        $(document).ready(function (){
+            $('#updateCourseButton').on('click',function (){
+                updateCourse();
+            })
+        })
+
+        function updateCourse(){
+            //get all the data for update
+            var coursePk = $('#coursePk').val();
+            var courseName = $('#courseName').val();
+            var courseFee = $('#courseFee').val();
+            var courseDuration = $('#courseDuration option:selected').val();
+
+
+            //empty data validation
+            if(courseName){
+                //checking for only alphabets
+                if(!onlyLettersAndSpaces(courseName)){
+                    swal({
+                        type: "warning",
+                        title: "Course Name can contains only Alphabets.",
+                        confirmButtonColor: '#337ab7',
+                        confirmButtonText: 'OK'
+                    });
+                    return;
+                }
+            }
+            if(!courseName || courseName.trim().length === 0){
+                swal({
+                    type: "warning",
+                    title: "Please Enter Course Name.",
+                    confirmButtonColor: '#337ab7',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            if(!courseFee || courseFee.trim().length === 0){
+                swal({
+                    type: "warning",
+                    title: "Please Enter Course Fee.",
+                    confirmButtonColor: '#337ab7',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            if(!courseDuration || courseDuration.trim().length === 0){
+                swal({
+                    type: "warning",
+                    title: "Please Enter Course Duration.",
+                    confirmButtonColor: '#337ab7',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            //call the ajax for updating the course
+            var url = BASE_URL + 'course/updateOneCourse';
+            var courseUpdateData = {
+                courseName : courseName,
+                coursePrice : courseFee,
+                courseDuration : courseDuration,
+                coursePk : coursePk
+            }
+            $.ajax({
+                type: 'put',
+                contentType: 'application/json',
+                url: url,
+                data: JSON.stringify(courseUpdateData),
+                dataType: 'text',
+                success: function (){
+                    swal({
+                        type: "success",
+                        title: "Course Updated Successfully.",
+                        confirmButtonColor: '#337ab7',
+                        confirmButtonText: 'OK'
+                    });
+
+                    //closing the form after success
+                   $('#editModal').modal('toggle');
+                   window.location.reload();
+                    return;
+                },
+                error: function (e) {
+                    swal({
+                        type: "error",
+                        title: "Something Bad happened Please contact for Support.",
+                        confirmButtonColor: '#337ab7',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+        }
+
+        function onlyLettersAndSpaces(str) {
+            return /^[A-Za-z\s]*$/.test(str);
+        }
+    </script>
 </head>
 <body>
 
@@ -12,12 +110,12 @@
     <div style="margin-top: 200px;" class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><img style="width: 25px;" th:src="@{/images/close.gif}"></button>
+                <button type="button" class="close" data-dismiss="modal"><img style="width: 25px;" th:src="@{/images/shutdown.gif}"></button>
                 <h4 class="modal-title text-center">Update the Course Details.</h4>
             </div>
             <div class="modal-body">
                 <form name="edit-form">
-
+                    <input type="text" id="coursePk" class="form-control hidden" th:value="${oneCourse.coursePk}">
                     <div class="form-group row">
                         <label for="courseName" class="col-md-5 col-form-label text-right required">Course Name</label>
                         <div class="col-md-3">
@@ -63,7 +161,7 @@
                     <br/>
                     <br/>
                     <div class="text-center">
-                        <input type="button" id="updateCourseBtn" class="btn btn-primary" value="Update Course" title="click to Update"/>
+                        <input type="button" id="updateCourseButton" class="btn btn-primary" value="Update Course" title="click to Update"/>
                     </div>
                 </form>
             </div>

@@ -18,6 +18,8 @@
         var BASE_URL = window.location.origin + "/" + window.location.pathname.split("/")[0];
 
         $(document).ready(function () {
+            $('#pageTooltip').tooltip({trigger: 'hover'});
+
             $('#createCourseBtn').on('click',function (){
                 createOneCourse();
             })
@@ -102,11 +104,6 @@
                     $('#successDiv').html("<div class='alert alert-danger'>Something Bad happened Please contact for Support</div>")
                 }
             })
-
-
-
-
-
         }
 
         function onlyLettersAndSpaces(str) {
@@ -119,7 +116,8 @@
 
 <body>
 <div class="page-header" layout:fragment="header">
-    <h1>Create Course.</h1>
+    <h1 style="display: inline-block;">Create Course.</h1>
+    <img id="pageTooltip" style="width: 30px; display: inline-block; margin-left: 75%;" th:src="@{/images/info.gif}" title="In this page you can only Create Courses.">
 </div>
 <div layout:fragment="content">
 

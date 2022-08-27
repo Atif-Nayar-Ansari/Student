@@ -23,4 +23,21 @@ public class CourseAjaxController {
         courseService.saveCourse(courseDetailsDTO);
         return modelAndView;
     }
+
+    @GetMapping("/getOneCourse/{courseId}")
+    public ModelAndView getOneCourse(@PathVariable("courseId") Long courseId){
+        ModelAndView modelAndView = new ModelAndView("course/fragments/courseModal");
+        modelAndView.addObject("oneCourse",courseService.findCourseBasedOnCourseId(courseId));
+        return modelAndView;
+    }
+
+    @DeleteMapping("/deleteOneCourse/{courseId}")
+    public void deleteOneCourse(@PathVariable("courseId") Long courseId){
+        courseService.deleteOneCourseBasedOnCourseId(courseId);
+    }
+
+    @PutMapping("/updateOneCourse")
+    public void updateCourse(@RequestBody CourseDetailsDTO courseDetailsDTO){
+            courseService.updateOneCourse(courseDetailsDTO);
+    }
 }

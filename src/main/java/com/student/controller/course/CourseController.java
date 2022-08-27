@@ -39,13 +39,4 @@ public class CourseController {
         return "/course/courseCreate";
     }
 
-    @GetMapping("/getOneCourse/{courseId}")
-    public ModelAndView getOneCourse(@PathVariable("courseId") Long courseId){
-        ModelAndView modelAndView = new ModelAndView("course/fragments/courseModal");
-        modelAndView.addObject("oneCourse",courseService.findCourseBasedOnCourseId(courseId));
-        //CourseDuration six_months = CourseDuration.valueOf("SIX_MONTHS");
-//        CourseDetailsViewModel test = courseService.findCourseBasedOnCourseId(courseId);
-//        modelAndView.addObject("c",test.getCourseDuration());
-        return modelAndView;
-    }
 }

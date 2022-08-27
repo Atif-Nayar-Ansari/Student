@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseService {
@@ -35,15 +37,15 @@ public class CourseService {
         List<CourseDetailsEntity> allCourses = courseRepository.findAll();
         List<CourseDetailsViewModel> courseList = new ArrayList<>();
         if(!CollectionUtils.isEmpty(allCourses)){
-            for (CourseDetailsEntity course : allCourses) {
+           return  allCourses.stream().map(course ->{
                 CourseDetailsViewModel courseDetailsViewModel = new CourseDetailsViewModel();
                 courseDetailsViewModel.setCoursePk(course.getCoursePk());
                 courseDetailsViewModel.setCoursePrice(course.getCoursePrice());
                 courseDetailsViewModel.setCourseName(course.getCourseName());
                 courseDetailsViewModel.setCourseDuration(CourseDuration.valueOf(course.getCourseDuration()));
                 courseDetailsViewModel.setCreatedTs(DateConverter.dateToString(course.getCreatedTs()));
-                courseList.add(courseDetailsViewModel);
-            }
+                return courseDetailsViewModel;
+            }).collect(Collectors.toList());
         }
         return courseList;
     }
@@ -61,5 +63,18 @@ public class CourseService {
             return  courseDetailsViewModel;
         }
         return null;
+    }
+
+    public void deleteOneCourseBasedOnCourseId(Long courseId){
+        courseRepository.deleteById(courseId);
+    }
+
+    public void updateOneCourse(CourseDetailsDTO courseDetailsDTO){
+        CourseDetailsEntity courseDetailsEntity = new CourseDetailsEntity();
+        courseDetailsEntity.setCoursePk(courseDetailsDTO.getCoursePk());
+        courseDetailsEntity.setCoursePrice(courseDetailsDTO.getCoursePrice());
+        courseDetailsEntity.setCourseDuration(courseDetailsDTO.getCourseDuration());
+        courseDetailsEntity.setCourseName(courseDetailsDTO.getCourseName());
+        courseRepository.save(courseDetailsEntity);
     }
 }

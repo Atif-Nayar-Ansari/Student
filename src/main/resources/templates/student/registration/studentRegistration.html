@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns="http://www.w3.org/1999/html"
+      layout:decorator="layout/layout" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Registration</title>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        $(document).ready(function () {
+            $('#pageTooltip').tooltip({trigger: 'hover'});
+        })
+
+        /*]]>*/
+    </script>
+</head>
+<body>
+<div class="page-header" layout:fragment="header">
+    <h1 style="display: inline-block;">Student Registration.</h1>
+    <img id="pageTooltip" style="width: 30px; display: inline-block; margin-left: 65%;" th:src="@{/images/info.gif}" title="In this page you can register a Student.">
+</div>
+<div layout:fragment="content" class="jumbotron">
+    <form class="form-horizontal" method="post" action="">
+
+            <div class="row">
+                <div class="badge badge-pill badge-secondary">Personal Information Details</div>
+            </div>
+            <br/>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-2 col-md-2">
+                <div class="form-group">
+                    <input type="text" name="first_name" id="firstName" class="form-control" placeholder="First Name" tabindex="1">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <input type="text" name="middle_name" id="middle_name" class="form-control" placeholder="Middle Name" tabindex="1">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <input type="text" name="last_name" id="last_name" class="form-control " placeholder="Last Name" tabindex="2">
+                </div>
+            </div>
+        </div>
+
+
+
+            <div class="col-sm-4 row">
+                <label class="control-label" for="first_name">First Name</label>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-user"></i>
+                        </span>
+                        <input id="first_name" name="first_name" placeholder="" class="form-control input-md" type="text">
+                    </div>
+                </div>
+
+<!--                <label class="col-md-1 control-label" for="middle_name">Mid Name</label>-->
+<!--                <div class="col-md-2">-->
+<!--                    <div class="input-group">-->
+<!--                    <span class="input-group-addon">-->
+<!--                     <i class="glyphicon glyphicon-user"></i>-->
+<!--                    </span>-->
+<!--                        <input id="middle_name" name="middle_name" placeholder="" class="form-control input-md" type="text">-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <label class="col-md-1 control-label" for="last_name">Last Name</label>-->
+<!--                <div class="col-md-2">-->
+<!--                    <div class="input-group">-->
+<!--                    <span class="input-group-addon">-->
+<!--                        <i class="glyphicon glyphicon-user"></i>-->
+<!--                    </span>-->
+<!--                        <input id="last_name" name="last_name" placeholder="" class="form-control input-md" type="text">-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+    </form>
+</div>
+
+</div>
+</body>
+</html>

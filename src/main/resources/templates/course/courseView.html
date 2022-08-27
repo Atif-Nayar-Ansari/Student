@@ -20,8 +20,8 @@
         var BASE_URL = window.location.origin + "/" + window.location.pathname.split("/")[0];
 
         $(document).ready(function () {
-
-            $('#courseTable').parent().find('[data-tooltip="tooltip"]').tooltip({trigger :'hover'});
+            $('#pageTooltip').tooltip({trigger: 'hover'});
+            $('#courseTable').parent().find('[data-tooltip="tooltip"]').tooltip({trigger: 'hover'});
 
             $('#courseTable').DataTable({
                 "order": [1, "asc"],
@@ -38,7 +38,7 @@
                 ]
             });
 
-            $('#courseTable').on('click','#editButton',function (){
+            $('#courseTable').on('click', '#editButton', function () {
                 var courseId = $(this).val();
 
                 //have to pass this above pk  to the below ajax call
@@ -47,13 +47,65 @@
                 $.ajax({
                     type: 'get',
                     url: url,
-                    success: function (data){
+                    success: function (data) {
                         $('#modalResult').html(data);
                         $('#editModal').modal('show');
+                    }, error: function () {
+                        swal({
+                            type: "error",
+                            title: "Something went wrong, please contact the Support.",
+                            confirmButtonColor: '#337ab7',
+                            confirmButtonText: 'OK'
+                        });
+                        return;
                     }
                 })
             })
 
+            //delete one course
+            $('#courseTable').on('click', '#deleteButton', function () {
+                var courseId = $(this).val();
+
+                //have to pass this above pk  to the below ajax call
+                var url = BASE_URL + 'course/deleteOneCourse/' + courseId;
+                if (courseId) {
+                    swal({
+                        title: "Are you sure?",
+                        text: "After delete course can't be recover!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: '#DD6B55',
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: "No",
+                        closeOnConfirm: true,
+                        closeOnCancel: true
+                    }, function (resp) {
+                        if (resp) {
+                            $.ajax({
+                                type: 'delete',
+                                url: url,
+                                success: function () {
+                                    swal({
+                                        type: "success",
+                                        title: "Course Deleted Successfully.",
+                                        timer: 3000,
+                                        showConfirmButton: false
+                                    })
+                                    window.location.reload();
+                                }, error: function () {
+                                    swal({
+                                        type: "error",
+                                        title: "Something went wrong, please contact the Support.",
+                                        confirmButtonColor: '#337ab7',
+                                        confirmButtonText: 'OK'
+                                    });
+                                    return;
+                                }
+                            })
+                        }
+                    });
+                }
+            })
         });
 
         /*]]>*/
@@ -63,8 +115,8 @@
 
 <body>
 <div class="page-header" layout:fragment="header">
-        <h1>View Courses.</h1>
-        <img style="width: 30px;" th:src="@{/images/info.gif}">
+    <h1 style="display: inline-block;">View Courses.</h1>
+    <img id="pageTooltip" style="width: 30px; display: inline-block; margin-left: 75%;" th:src="@{/images/info.gif}" title="In this page you can View, Create, Edit, Delete Courses.">
 </div>
 <div layout:fragment="content" class="jumbotron">
     <div th:if="${allCourses != null}">
@@ -75,8 +127,8 @@
             <table class="table table-bordered table-hover table-striped" id="courseTable"
                    aria-label="all-courses-table">
                 <thead>
-                <tr style="background-color: #7F9D3F">
-                    <th scope="col"><strong>Pks</strong></th>
+                <tr style="background-color: #cadba2">
+                    <th scope="col"><strong>Course Id</strong></th>
                     <th scope="col"><strong>Course Name</strong></th>
                     <th scope="col"><strong>Course Fees</strong></th>
                     <th scope="col"><strong>Course Duration</strong></th>
@@ -92,10 +144,12 @@
                     <td th:text="${course.courseDuration}"></td>
                     <td th:text="${course.createdTs}"></td>
                     <td>
-                        <button data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Edit" id="editButton" th:value="${course.coursePk}">
+                        <button data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Edit" style="margin-left: 20px;"
+                                id="editButton" th:value="${course.coursePk}">
                             <img style="width: 30px;" th:src="@{/images/settings.gif}">
                         </button>
-                        <button data-tooltip="tooltip" data-placement="top" title="Delete" id="deleteButton">
+                        <button data-tooltip="tooltip" data-placement="top" title="Delete" id="deleteButton"
+                                th:value="${course.coursePk}">
                             <img style="width: 30px;" th:src="@{/images/waste.gif}">
                         </button>
                     </td>
