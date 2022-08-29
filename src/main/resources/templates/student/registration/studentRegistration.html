@@ -39,17 +39,17 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-inline">
-                        <div class="form-group col-md-4">
+                        <div class="col-md-4">
                             <label for="firstName" class="required">First Name</label>
                             <input type="text" class="form-control" id="firstName" placeholder="First Name">
                         </div>
 
-                        <div class="form-group col-md-4">
+                        <div class="col-md-4">
                             <label for="middleName">Middle Name</label>
                             <input type="text" class="form-control" id="middleName" placeholder="Middle Name">
                         </div>
 
-                        <div class="form-group col-md-4">
+                        <div class="col-md-4">
                             <label for="lastName">Last Name</label>
                             <input type="text" class="form-control" id="lastName" placeholder="Last Name">
                         </div>
@@ -60,7 +60,7 @@
                     <br/>
 
                     <div class="form-inline">
-                        <div class="form-group col-md-4">
+                        <div class="col-md-4">
                             <label for="dateOfBirth">Select Gender</label>
                             <ul>
                                 <div class="form-check">
@@ -76,20 +76,20 @@
                             </ul>
                         </div>
 
-                        <div class="form-group col-md-4">
+                        <div class="col-md-4">
                             <label for="dateOfBirth" class="required">Date Of Birth</label>
                             <input type="date" style="width: 62%;" class="form-control" id="dateOfBirth">
                         </div>
 
-                        <div class="form-group col-md-4">
+                        <div class="col-md-4">
                             <label for="phoneNumber">Phone&nbsp;&nbsp;+91</label>
                             <input class="form-control" id="phoneNumber" placeholder="Phone Number" type="text"
                                    name="country_code" title="Error Message" pattern="[1-9]{1}[0-9]{9}">
                         </div>
                         <br/><br/><br/>
-                        <div class="form-group col-md-8">
+                        <div class="col-md-8">
                             <label for="email">Email Address</label>
-                            <input class="form-control" style="width: 75%;" id="email"
+                            <input class="form-control" style="width: 80%;" id="email"
                                    placeholder="Enter Email Address." type="email">
                         </div>
                     </div>
@@ -98,15 +98,15 @@
                     <br/>
                     <div class="form-inline">
                         <div class="form-inline">
-                            <div class="form-group col-md-6">
+                            <div class="col-md-6">
                                 <label for="firstName" class="required">Father's Name</label>
-                                <input type="text" class="form-control" style="width: 60%;" id="fatherName"
+                                <input type="text" class="form-control" style="width: 66%;" id="fatherName"
                                        placeholder="Father's Name">
                             </div>
 
-                            <div class="form-group col-md-6">
+                            <div class="col-md-6">
                                 <label for="motherName">Mother's Name</label>
-                                <input type="text" class="form-control" style="width: 65%;" id="motherName"
+                                <input type="text" class="form-control" style="width: 72%;" id="motherName"
                                        placeholder="Mother's Name">
                             </div>
                         </div>
@@ -120,16 +120,16 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-inline">
-                        <div class="form-group col-md-4">
+                        <div class="col-md-4">
                             <label for="address" class="required">Address</label>
                             <textarea class="form-control" style="resize:none; width: 75%;" id="address" rows="3" placeholder="Enter Address"></textarea>
                         </div>
                         <br/>
-                        <div class="form-group col-md-4">
+                        <div class="col-md-4">
                             <label for="city">City Name</label>
                             <input type="text" class="form-control" id="city" placeholder="City Name">
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="col-md-4">
                             <label for="state">State Name</label>
                             <input type="text" class="form-control" id="state" placeholder="State Name">
                         </div>
@@ -142,22 +142,58 @@
                     <div class="badge badge-pill badge-secondary">Course Details</div>
                 </div>
                 <div class="panel-body">
-                    <div class="form-inline">
-                        //TODO after selecting from the course drop down, course fee, duration will come dynamically.(course enrolled date/ reset button)
-<!--                        <div class="form-group col-md-4">-->
-<!--                            <label for="address" class="required">Address</label>-->
-<!--                            <textarea class="form-control" style="resize:none; width: 75%;" id="address" rows="3" placeholder="Enter Address"></textarea>-->
-<!--                        </div>-->
-<!--                        <br/>-->
-<!--                        <div class="form-group col-md-4">-->
+<!--                    <div class="form-group">-->
+<!--                        <div class="form-group col-md-3">-->
 <!--                            <label for="city">City Name</label>-->
 <!--                            <input type="text" class="form-control" id="city" placeholder="City Name">-->
 <!--                        </div>-->
-<!--                        <div class="form-group col-md-4">-->
+<!--                        <div class="form-group col-md-3">-->
+<!--                            <label for="city">City Name</label>-->
+<!--                            <input type="text" class="form-control" id="city" placeholder="City Name">-->
+<!--                        </div>-->
+<!--                        <div class="form-group col-md-3">-->
 <!--                            <label for="state">State Name</label>-->
 <!--                            <input type="text" class="form-control" id="state" placeholder="State Name">-->
 <!--                        </div>-->
+<!--                        <div class="form-group col-md-3">-->
+<!--                            <label for="state">State Name</label>-->
+<!--                            <input type="text" class="form-control" id="state" placeholder="State Name">-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            <label for="courses">Select Course</label>
+                            <input type="text" class="form-control" id="courses" placeholder="Select Course">
+                        </div>
+                        <div class="col-md-3 ">
+                            <label for="courseFee">Course Fee</label>
+                            <input type="text" class="form-control" style="width: 70%;" id="courseFee" placeholder="courseFee">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="courseDuration">Course Duration</label>
+                            <input type="text" class="form-control" id="courseDuration" placeholder="CourseDuration">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="courseEnrolledData">Course Enrolled Date</label>
+                            <input type="date" class="form-control" style="width: 60%;" id="courseEnrolledData">
+                        </div>
                     </div>
+
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <label for="courseEnrolledData">Course Enrolled Date</label>
+                            <input type="text" class="form-control" placeholder="City">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="courseEnrolledData">Course Enrolled Date</label>
+                            <input type="text" class="form-control" placeholder="State">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="courseEnrolledData">Course Enrolled Date</label>
+                            <input type="text" class="form-control" placeholder="Zip">
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -165,3 +201,20 @@
 </div>
 </body>
 </html>
+
+<!--<div class="form-group col-md-3">-->
+<!--    <label for="courses">Select Course</label>-->
+<!--    <input type="text" class="form-control" id="courses" placeholder="Select Course">-->
+<!--</div>-->
+<!--<div class="form-group col-md-3" style="margin-left: 35px;">-->
+<!--    <label for="courseFee">Course Fee</label>-->
+<!--    <input type="text" class="form-control" style="width: 70%;" id="courseFee" placeholder="courseFee">-->
+<!--</div>-->
+<!--<div class="form-group col-md-3">-->
+<!--    <label for="courseDuration">Course Duration</label>-->
+<!--    <input type="text" class="form-control" id="courseDuration" placeholder="CourseDuration">-->
+<!--</div>-->
+<!--<div class="form-group col-md-3"  style="margin-left: 30px">-->
+<!--    <label for="couseEnrolledData">Password</label>-->
+<!--    <input type="date" class="form-control" style="width: 60%;" id="couseEnrolledData">-->
+<!--</div>-->
