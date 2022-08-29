@@ -7,6 +7,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Student Registration</title>
+    <style>
+        .required:after {
+            content: " *";
+            color: red;
+        }
+    </style>
     <script th:inline="javascript">
         /*<![CDATA[*/
 
@@ -20,70 +26,142 @@
 <body>
 <div class="page-header" layout:fragment="header">
     <h1 style="display: inline-block;">Student Registration.</h1>
-    <img id="pageTooltip" style="width: 30px; display: inline-block; margin-left: 65%;" th:src="@{/images/info.gif}" title="In this page you can register a Student.">
+    <img id="pageTooltip" style="width: 30px; display: inline-block; margin-left: 65%;" th:src="@{/images/info.gif}"
+         title="In this page you can register a Student.">
 </div>
 <div layout:fragment="content" class="jumbotron">
     <form class="form-horizontal" method="post" action="">
 
-            <div class="row">
-                <div class="badge badge-pill badge-secondary">Personal Information Details</div>
-            </div>
-            <br/>
+        <div class="panel-group">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="badge badge-pill badge-secondary">Personal Details</div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-inline">
+                        <div class="form-group col-md-4">
+                            <label for="firstName" class="required">First Name</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                        </div>
 
-        <div class="row">
-            <div class="col-xs-12 col-sm-2 col-md-2">
-                <div class="form-group">
-                    <input type="text" name="first_name" id="firstName" class="form-control" placeholder="First Name" tabindex="1">
+                        <div class="form-group col-md-4">
+                            <label for="middleName">Middle Name</label>
+                            <input type="text" class="form-control" id="middleName" placeholder="Middle Name">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <div class="form-inline">
+                        <div class="form-group col-md-4">
+                            <label for="dateOfBirth">Select Gender</label>
+                            <ul>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="maleCheckBox"
+                                           value="maleCheckBox" checked>
+                                    <label class="form-check-label" for="maleCheckBox">Male</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="femaleCheckBox"
+                                           value="femaleCheckBox">
+                                    <label class="form-check-label" for="femaleCheckBox">Female</label>
+                                </div>
+                            </ul>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="dateOfBirth" class="required">Date Of Birth</label>
+                            <input type="date" style="width: 62%;" class="form-control" id="dateOfBirth">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="phoneNumber">Phone&nbsp;&nbsp;+91</label>
+                            <input class="form-control" id="phoneNumber" placeholder="Phone Number" type="text"
+                                   name="country_code" title="Error Message" pattern="[1-9]{1}[0-9]{9}">
+                        </div>
+                        <br/><br/><br/>
+                        <div class="form-group col-md-8">
+                            <label for="email">Email Address</label>
+                            <input class="form-control" style="width: 75%;" id="email"
+                                   placeholder="Enter Email Address." type="email">
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="form-inline">
+                        <div class="form-inline">
+                            <div class="form-group col-md-6">
+                                <label for="firstName" class="required">Father's Name</label>
+                                <input type="text" class="form-control" style="width: 60%;" id="fatherName"
+                                       placeholder="Father's Name">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="motherName">Mother's Name</label>
+                                <input type="text" class="form-control" style="width: 65%;" id="motherName"
+                                       placeholder="Mother's Name">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-4 col-md-4">
-                <div class="form-group">
-                    <input type="text" name="middle_name" id="middle_name" class="form-control" placeholder="Middle Name" tabindex="1">
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="badge badge-pill badge-secondary">Address Details</div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-inline">
+                        <div class="form-group col-md-4">
+                            <label for="address" class="required">Address</label>
+                            <textarea class="form-control" style="resize:none; width: 75%;" id="address" rows="3" placeholder="Enter Address"></textarea>
+                        </div>
+                        <br/>
+                        <div class="form-group col-md-4">
+                            <label for="city">City Name</label>
+                            <input type="text" class="form-control" id="city" placeholder="City Name">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="state">State Name</label>
+                            <input type="text" class="form-control" id="state" placeholder="State Name">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-4 col-md-4">
-                <div class="form-group">
-                    <input type="text" name="last_name" id="last_name" class="form-control " placeholder="Last Name" tabindex="2">
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="badge badge-pill badge-secondary">Course Details</div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-inline">
+                        //TODO after selecting from the course drop down, course fee, duration will come dynamically.(course enrolled date/ reset button)
+<!--                        <div class="form-group col-md-4">-->
+<!--                            <label for="address" class="required">Address</label>-->
+<!--                            <textarea class="form-control" style="resize:none; width: 75%;" id="address" rows="3" placeholder="Enter Address"></textarea>-->
+<!--                        </div>-->
+<!--                        <br/>-->
+<!--                        <div class="form-group col-md-4">-->
+<!--                            <label for="city">City Name</label>-->
+<!--                            <input type="text" class="form-control" id="city" placeholder="City Name">-->
+<!--                        </div>-->
+<!--                        <div class="form-group col-md-4">-->
+<!--                            <label for="state">State Name</label>-->
+<!--                            <input type="text" class="form-control" id="state" placeholder="State Name">-->
+<!--                        </div>-->
+                    </div>
                 </div>
             </div>
         </div>
-
-
-
-            <div class="col-sm-4 row">
-                <label class="control-label" for="first_name">First Name</label>
-                <div class="col-sm-3">
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                        <i class="glyphicon glyphicon-user"></i>
-                        </span>
-                        <input id="first_name" name="first_name" placeholder="" class="form-control input-md" type="text">
-                    </div>
-                </div>
-
-<!--                <label class="col-md-1 control-label" for="middle_name">Mid Name</label>-->
-<!--                <div class="col-md-2">-->
-<!--                    <div class="input-group">-->
-<!--                    <span class="input-group-addon">-->
-<!--                     <i class="glyphicon glyphicon-user"></i>-->
-<!--                    </span>-->
-<!--                        <input id="middle_name" name="middle_name" placeholder="" class="form-control input-md" type="text">-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <label class="col-md-1 control-label" for="last_name">Last Name</label>-->
-<!--                <div class="col-md-2">-->
-<!--                    <div class="input-group">-->
-<!--                    <span class="input-group-addon">-->
-<!--                        <i class="glyphicon glyphicon-user"></i>-->
-<!--                    </span>-->
-<!--                        <input id="last_name" name="last_name" placeholder="" class="form-control input-md" type="text">-->
-<!--                    </div>-->
-<!--                </div>-->
-            </div>
     </form>
-</div>
-
 </div>
 </body>
 </html>
