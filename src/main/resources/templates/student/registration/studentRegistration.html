@@ -7,6 +7,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Student Registration</title>
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+
     <style>
         .required:after {
             content: " *";
@@ -18,6 +27,27 @@
 
         $(document).ready(function () {
             $('#pageTooltip').tooltip({trigger: 'hover'});
+
+            var multipleCancelButton = new Choices('#selectCourse', {
+                removeItemButton: true,
+                maxItemCount:3,
+                searchResultLimit:4,
+                renderChoiceLimit:4
+            });
+
+            //TODO add all the values and show this in the fee input box like this -> [[]]
+            $('#selectCourse').change(function (){
+               var selectedValues = $(this).val();
+                // var array = selectedValues;
+                // var sum = 0;
+                //
+                // for (var i = 0; i < array.length; i++) {
+                //     sum += Number(array[i]);
+                // }
+                // console.log(sum);
+                console.log(selectedValues);
+            });
+
         })
 
         /*]]>*/
@@ -122,7 +152,8 @@
                     <div class="form-inline">
                         <div class="col-md-4">
                             <label for="address" class="required">Address</label>
-                            <textarea class="form-control" style="resize:none; width: 75%;" id="address" rows="3" placeholder="Enter Address"></textarea>
+                            <textarea class="form-control" style="resize:none; width: 75%;" id="address" rows="3"
+                                      placeholder="Enter Address"></textarea>
                         </div>
                         <br/>
                         <div class="col-md-4">
@@ -142,58 +173,49 @@
                     <div class="badge badge-pill badge-secondary">Course Details</div>
                 </div>
                 <div class="panel-body">
-<!--                    <div class="form-group">-->
-<!--                        <div class="form-group col-md-3">-->
-<!--                            <label for="city">City Name</label>-->
-<!--                            <input type="text" class="form-control" id="city" placeholder="City Name">-->
-<!--                        </div>-->
-<!--                        <div class="form-group col-md-3">-->
-<!--                            <label for="city">City Name</label>-->
-<!--                            <input type="text" class="form-control" id="city" placeholder="City Name">-->
-<!--                        </div>-->
-<!--                        <div class="form-group col-md-3">-->
-<!--                            <label for="state">State Name</label>-->
-<!--                            <input type="text" class="form-control" id="state" placeholder="State Name">-->
-<!--                        </div>-->
-<!--                        <div class="form-group col-md-3">-->
-<!--                            <label for="state">State Name</label>-->
-<!--                            <input type="text" class="form-control" id="state" placeholder="State Name">-->
-<!--                        </div>-->
-<!--                    </div>-->
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <label for="courses">Select Course</label>
-                            <input type="text" class="form-control" id="courses" placeholder="Select Course">
-                        </div>
-                        <div class="col-md-3 ">
-                            <label for="courseFee">Course Fee</label>
-                            <input type="text" class="form-control" style="width: 70%;" id="courseFee" placeholder="courseFee">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="courseDuration">Course Duration</label>
-                            <input type="text" class="form-control" id="courseDuration" placeholder="CourseDuration">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="courseEnrolledData">Course Enrolled Date</label>
-                            <input type="date" class="form-control" style="width: 60%;" id="courseEnrolledData">
+                    <div class="form-inline" style="margin-left: 25px;">
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="selectCourse">Select Course</label>
+                                    <select id="selectCourse"  placeholder="Select Courses" multiple>
+                                        <option th:each="courseName : ${allCourses}" th:value="${courseName.coursePrice}" th:text="${courseName.courseName}"></option>
+                                    </select>
+                            </div>
+                            <div class="col-md-3 ">
+                                <label for="courseFee">Course Fee</label>
+                                <input type="text" class="form-control" id="courseFee"
+                                       placeholder="courseFee">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="paymentReceived">Payment Received</label>
+                                <input type="number" class="form-control" id="paymentReceived"
+                                       placeholder="Payment In Rupees">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="courseEnrolledData">Course Enrolled Date</label>
+                                <input type="date" class="form-control" id="courseEnrolledData">
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <label for="courseEnrolledData">Course Enrolled Date</label>
-                            <input type="text" class="form-control" placeholder="City">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="courseEnrolledData">Course Enrolled Date</label>
-                            <input type="text" class="form-control" placeholder="State">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="courseEnrolledData">Course Enrolled Date</label>
-                            <input type="text" class="form-control" placeholder="Zip">
+                    <div class="form-inline" style="margin-left: 25px;">
+                        <div class="form-row">
+                             <div class="col-md-3 ">
+                                <label for="teacher">Teacher Name</label>
+                                <input type="text" class="form-control" id="teacher"
+                                       placeholder="Teacher">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="place">Place</label>
+                                <input type="text" class="form-control" id="place"
+                                       placeholder="Place">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="courseOverDate">Course Over Date</label>
+                                <input type="date" class="form-control" id="courseOverDate">
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -201,20 +223,3 @@
 </div>
 </body>
 </html>
-
-<!--<div class="form-group col-md-3">-->
-<!--    <label for="courses">Select Course</label>-->
-<!--    <input type="text" class="form-control" id="courses" placeholder="Select Course">-->
-<!--</div>-->
-<!--<div class="form-group col-md-3" style="margin-left: 35px;">-->
-<!--    <label for="courseFee">Course Fee</label>-->
-<!--    <input type="text" class="form-control" style="width: 70%;" id="courseFee" placeholder="courseFee">-->
-<!--</div>-->
-<!--<div class="form-group col-md-3">-->
-<!--    <label for="courseDuration">Course Duration</label>-->
-<!--    <input type="text" class="form-control" id="courseDuration" placeholder="CourseDuration">-->
-<!--</div>-->
-<!--<div class="form-group col-md-3"  style="margin-left: 30px">-->
-<!--    <label for="couseEnrolledData">Password</label>-->
-<!--    <input type="date" class="form-control" style="width: 60%;" id="couseEnrolledData">-->
-<!--</div>-->

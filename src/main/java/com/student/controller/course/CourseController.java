@@ -28,7 +28,7 @@ public class CourseController {
         return "course-active";
     }
 
-    @GetMapping("")
+    @GetMapping("/viewAllCourse")
     public String viewAllCourses(Model model){
         model.addAttribute("allCourses",courseService.findAllCourse());
         return "/course/courseView";
