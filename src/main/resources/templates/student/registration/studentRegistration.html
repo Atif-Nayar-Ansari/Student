@@ -7,11 +7,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Student Registration</title>
-    <!-- Select2 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
-    <!-- Select2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
@@ -28,6 +23,11 @@
         $(document).ready(function () {
             $('#pageTooltip').tooltip({trigger: 'hover'});
 
+            //while clicking on the reset button just simple reload the page.
+            $('#resetButton').on('click',function (){
+                window.location.reload();
+            })
+
             var multipleCancelButton = new Choices('#selectCourse', {
                 removeItemButton: true,
                 maxItemCount:3,
@@ -35,20 +35,152 @@
                 renderChoiceLimit:4
             });
 
-            //TODO add all the values and show this in the fee input box like this -> [[]]
+            //once from the multiselect dropdown selected its fee sum is calculated
             $('#selectCourse').change(function (){
+               var totalFee = 0;
                var selectedValues = $(this).val();
-                // var array = selectedValues;
-                // var sum = 0;
-                //
-                // for (var i = 0; i < array.length; i++) {
-                //     sum += Number(array[i]);
-                // }
-                // console.log(sum);
-                console.log(selectedValues);
+               // selectedValues.forEach(firstValue =>{
+               //          console.log(firstValue.split(" ")[0])
+               //     // coursePrice.forEach(fee =>{
+               //     //     totalFee = totalFee + Number(fee);
+               //     // })
+               // })
+                selectedValues.forEach(fee =>{
+                    //getting here the first value from the th:value="${course.coursePrice}+'--'+${course.courseName}"
+                    var allFee = Number(fee.split("--")[0]);
+                    totalFee = totalFee + allFee;
+
+                })
+                $('#courseFee').val(totalFee);
             });
 
+            //disable paymentMode and paymentDate if received payment is not entered
+            $('#paymentMode').prop('disabled', true);//initially it will be disabled
+            $('#paymentDate').prop('disabled', true);//initially it will be disabled
+            $('#paymentReceived').change(function (){
+                var paymentReceived = $('#paymentReceived').val();
+                if(!paymentReceived || paymentReceived.trim().length === 0){
+                    //resting the payment mode and the payment date
+                    $('#paymentMode').prop('disabled', true);
+                    $('#paymentMode').prop('selectedIndex',0);
+                    $('#paymentDate').prop('disabled', true);
+                    $('#paymentDate').val('').attr('type', 'text').attr('type', 'date');
+                }else{
+                    $('#paymentMode').prop('disabled', false);
+                    $('#paymentDate').prop('disabled', false);
+
+                }
+            })
+
+            //for submitting the form
+            $('#submitStudentRegistration').on('click',function (){
+                submitStudentRegistration()
+            })
         })
+
+        function submitStudentRegistration(){
+            //TODO validations
+            var firstName = $('#firstName').val();
+            var middleName= $('#middleName').val();
+            var lastName= $('#lastName').val();
+            var gender = $('input:radio[name=gender]:checked').val();
+            var dateOfBirth = $('#dateOfBirth').val();
+            var phoneNumber = $('#phoneNumber').val();
+            var email = $('#email').val();
+            var fatherName = $('#fatherName').val();
+            var motherName = $('#motherName').val();
+            var address = $('#address').val();
+            var city = $('#city').val();
+            var state = $('#state').val();
+            var allCoursedAssignedId = '';
+
+            //this piece of code will give the pk of all the course chosen from the multi drop down
+            var selectedCourseId = $('#selectCourse').val();
+            selectedCourseId.forEach(data =>{
+                //getting the second value from the multidrop down
+                var tempId = data.split("--")[1];
+                allCoursedAssignedId = allCoursedAssignedId.concat(tempId).concat(" ")
+            })
+
+
+            var courseFees = $('#courseFee').val();
+            var paymentReceived = $('#paymentReceived').val();
+            var paymentMode = $('#paymentMode :selected').val();
+            var paymentDate = $('#paymentDate').val();
+            var place = $('#place').val();
+            var courseEnrolledDate = $('#courseEnrolledDate').val()
+            var remarks = $('#remarks').val();
+            var teacherName =$('#teacherName');
+
+            //validations
+            if(!firstName || firstName.trim().length === 0){
+                swal({
+                    type: "warning",
+                    title: "Please Enter First Name.",
+                    confirmButtonColor: '#337ab7',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            if(!dateOfBirth || dateOfBirth.trim().length === 0){
+                swal({
+                    type: "warning",
+                    title: "Please Enter Date of Birth.",
+                    confirmButtonColor: '#337ab7',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            if(!fatherName || fatherName.trim().length === 0){
+                swal({
+                    type: "warning",
+                    title: "Please Enter Father's Name.",
+                    confirmButtonColor: '#337ab7',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            if(!address || address.trim().length === 0){
+                swal({
+                    type: "warning",
+                    title: "Please Enter Address",
+                    confirmButtonColor: '#337ab7',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            if(!state || state.trim().length === 0){
+                swal({
+                    type: "warning",
+                    title: "Please Enter State Name",
+                    confirmButtonColor: '#337ab7',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            if(!city || city.trim().length === 0){
+                swal({
+                    type: "warning",
+                    title: "Please Enter City Name",
+                    confirmButtonColor: '#337ab7',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            if(!place || place.trim().length === 0){
+                swal({
+                    type: "warning",
+                    title: "Please Enter Place",
+                    confirmButtonColor: '#337ab7',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            //TODO next to send the registration value to backend.
+            console.log(dateOfBirth)
+
+
+        }
 
         /*]]>*/
     </script>
@@ -60,7 +192,7 @@
          title="In this page you can register a Student.">
 </div>
 <div layout:fragment="content" class="jumbotron">
-    <form class="form-horizontal" method="post" action="">
+    <form class="form-horizontal">
 
         <div class="panel-group">
             <div class="panel panel-success">
@@ -91,16 +223,16 @@
 
                     <div class="form-inline">
                         <div class="col-md-4">
-                            <label for="dateOfBirth">Select Gender</label>
+                            <label class="required">Select Gender</label>
                             <ul>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="gender" id="maleCheckBox"
-                                           value="maleCheckBox" checked>
+                                           value="maleCheckBox" checked th:value="male">
                                     <label class="form-check-label" for="maleCheckBox">Male</label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="gender" id="femaleCheckBox"
-                                           value="femaleCheckBox">
+                                           value="femaleCheckBox" th:value="female">
                                     <label class="form-check-label" for="femaleCheckBox">Female</label>
                                 </div>
                             </ul>
@@ -113,7 +245,7 @@
 
                         <div class="col-md-4">
                             <label for="phoneNumber">Phone&nbsp;&nbsp;+91</label>
-                            <input class="form-control" id="phoneNumber" placeholder="Phone Number" type="text"
+                            <input class="form-control" id="phoneNumber" placeholder="Phone Number" type="number"
                                    name="country_code" title="Error Message" pattern="[1-9]{1}[0-9]{9}">
                         </div>
                         <br/><br/><br/>
@@ -157,11 +289,11 @@
                         </div>
                         <br/>
                         <div class="col-md-4">
-                            <label for="city">City Name</label>
+                            <label for="city" class="required">City Name</label>
                             <input type="text" class="form-control" id="city" placeholder="City Name">
                         </div>
                         <div class="col-md-4">
-                            <label for="state">State Name</label>
+                            <label for="state" class="required">State Name</label>
                             <input type="text" class="form-control" id="state" placeholder="State Name">
                         </div>
                     </div>
@@ -178,13 +310,13 @@
                             <div class="form-group col-md-3">
                                 <label for="selectCourse">Select Course</label>
                                     <select id="selectCourse"  placeholder="Select Courses" multiple>
-                                        <option th:each="courseName : ${allCourses}" th:value="${courseName.coursePrice}" th:text="${courseName.courseName}"></option>
+                                        <option id="selectedCourseNames" th:each="course : ${allCourses}" th:value="${course.coursePrice}+'--'+${course.coursePk}" th:text="${course.courseName}"></option>
                                     </select>
                             </div>
                             <div class="col-md-3 ">
                                 <label for="courseFee">Course Fee</label>
-                                <input type="text" class="form-control" id="courseFee"
-                                       placeholder="courseFee">
+                                <input type="number" class="form-control" id="courseFee"
+                                       placeholder="courseFee" readonly>
                             </div>
                             <div class="col-md-3">
                                 <label for="paymentReceived">Payment Received</label>
@@ -192,8 +324,12 @@
                                        placeholder="Payment In Rupees">
                             </div>
                             <div class="col-md-3">
-                                <label for="courseEnrolledData">Course Enrolled Date</label>
-                                <input type="date" class="form-control" id="courseEnrolledData">
+                                <label for="paymentMode">Payment Mode</label>
+                                <select class="form-control" id="paymentMode" style="width: 70%;">
+                                    <option th:value="none" selected>Select Mode</option>
+                                    <option th:value="online">Online</option>
+                                    <option th:value="offline">Offline</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -201,23 +337,38 @@
                     <div class="form-inline" style="margin-left: 25px;">
                         <div class="form-row">
                              <div class="col-md-3 ">
-                                <label for="teacher">Teacher Name</label>
-                                <input type="text" class="form-control" id="teacher"
-                                       placeholder="Teacher">
+                                <label for="paymentDate">Payment Date</label>
+                                <input type="date" class="form-control" id="paymentDate" style="width: 95%;">
                             </div>
                             <div class="col-md-3">
-                                <label for="place">Place</label>
+                                <label for="place" class="required">Place</label>
                                 <input type="text" class="form-control" id="place"
                                        placeholder="Place">
                             </div>
                             <div class="col-md-3">
-                                <label for="courseOverDate">Course Over Date</label>
-                                <input type="date" class="form-control" id="courseOverDate">
+                                <label for="courseEnrolledDate">Course Enrolled Date</label>
+                                <input type="date" class="form-control" id="courseEnrolledDate">
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="form-inline">
+                        <div class="col-md-6"><br/>
+                            <label for="remarks">Remarks or Comments if any.</label>
+                            <textarea class="form-control" style="resize:none; width: 75%;" id="remarks" rows="3"
+                                      placeholder="Enter any Remarks or Comments for this student !"></textarea>
+                        </div>
+                        <div class="col-md-4"><br/><br/>
+                            <label for="teacherName">Teacher Name</label>
+                            <input type="text" class="form-control" id="teacherName" placeholder="Enter Teacher Name">
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="text-center">
+            <input class="btn btn-warning" id="resetButton" type="button" value="Reset"/>&nbsp;&nbsp;&nbsp;
+            <input type="button" class="btn btn-success" id="submitStudentRegistration" value="Submit"/>
         </div>
     </form>
 </div>
