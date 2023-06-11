@@ -20,6 +20,8 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
 
+        var BASE_URL = window.location.origin + "/" + window.location.pathname.split("/")[0];
+
         $(document).ready(function () {
             $('#pageTooltip').tooltip({trigger: 'hover'});
 
@@ -93,7 +95,6 @@
             var city = $('#city').val();
             var state = $('#state').val();
             var allCoursedAssignedId = '';
-
             //this piece of code will give the pk of all the course chosen from the multi drop down
             var selectedCourseId = $('#selectCourse').val();
             selectedCourseId.forEach(data =>{
@@ -101,6 +102,8 @@
                 var tempId = data.split("--")[1];
                 allCoursedAssignedId = allCoursedAssignedId.concat(tempId).concat(" ")
             })
+            //removed the extra space
+            allCoursedAssignedId = allCoursedAssignedId.trim();
 
 
             var courseFees = $('#courseFee').val();
@@ -110,7 +113,8 @@
             var place = $('#place').val();
             var courseEnrolledDate = $('#courseEnrolledDate').val()
             var remarks = $('#remarks').val();
-            var teacherName =$('#teacherName');
+            var teacherName = $('#teacherName').val();
+
 
             //validations
             if(!firstName || firstName.trim().length === 0){
@@ -177,7 +181,59 @@
                 return;
             }
             //TODO next to send the registration value to backend.
-            console.log(dateOfBirth)
+            //call the ajax for registering
+            var url = BASE_URL + 'student/registerStudent';
+            var registrationData = {
+                firstName : firstName,
+                middleName : middleName,
+                lastName : lastName,
+                gender : gender,
+                dateOfBirth : dateOfBirth,
+                phoneNumber : phoneNumber,
+                email : email,
+                fatherName :fatherName,
+                motherName : motherName,
+                address : address,
+                city : city,
+                state : state,
+                courseIdsAsStrings :allCoursedAssignedId,
+                paymentReceived : paymentReceived,
+                paymentMode : paymentMode,
+                paymentDate : paymentDate,
+                place : place,
+                courseEnrolledDate : courseEnrolledDate,
+                remarks : remarks,
+                teacherName : teacherName
+            }
+
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                url: url,
+                data: JSON.stringify(registrationData),
+                dataType: 'text',
+                success: function (data){
+                    swal({
+                        type: "success",
+                        title: "Registration Successful.",
+                        confirmButtonColor: '#337ab7',
+                        confirmButtonText: 'OK'
+                    }, function (){
+                        //reset the form
+                        window.location.reload();
+                        return;
+                    });
+                },
+                error: function (e) {
+                    swal({
+                        type: "error",
+                        title: "Something Bad happened Please contact for Support.",
+                        confirmButtonColor: '#337ab7',
+                        confirmButtonText: 'OK'
+                    });
+                    return;
+                }
+            })
 
 
         }
